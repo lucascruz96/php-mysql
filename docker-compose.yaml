@@ -1,0 +1,28 @@
+version: '2'
+services:
+  db:
+    build: "./.data/images/my-mysql"
+    container_name: db
+    command: mysqld --user=root --verbose
+    volumes:
+      - "./data/tmp/teste.sql:/tmp/teste.sql"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: teste
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+  web:
+    build: "./.data/images/my-php"
+    volumes:
+      - "./src:/var/www/html" # os arquivos de /var/www/html do container ficam armazenados em ./src do host
+    depends_on:
+      - db
+    links:
+      - db
+    ports:
+      - "8000:80"
+    restart: always
