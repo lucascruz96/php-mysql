@@ -12,6 +12,3 @@
   else {
     echo "par";
   }
-
-  
- ?>
