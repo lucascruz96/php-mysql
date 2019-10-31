@@ -1,7 +1,7 @@
 version: '2'
 services:
   db:
-    build: "./.data/images/my-mysql"
+    image: mysql:5.7
     container_name: db
     command: mysqld --user=root --verbose
     volumes:
@@ -16,7 +16,7 @@ services:
       - "3306:3306"
 
   web:
-    build: "./.data/images/my-php"
+    build: .
     volumes:
       - "./src:/var/www/html" # os arquivos de /var/www/html do container ficam armazenados em ./src do host
     depends_on:
